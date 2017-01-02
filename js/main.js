@@ -43,7 +43,7 @@ $(function() {
   var torMaterial = new THREE.MeshLambertMaterial({
 	  color: 0xffff00
 	  });
-  var torusKnot = new THREE.Mesh(torGeometry, torMaterial);
+  var torusKnot = new THREE.Mesh(torGeometry,  shaderMat);
   
   torusKnot.position.x = -15;
   torusKnot.position.y = 6;
@@ -53,10 +53,26 @@ $(function() {
   
   //bazoyme ta stoixeia ths gewmetrias kai to material kai meta ta kanoyme ena antikeimeno Mesh 
   var cubeGeometry = new THREE.BoxGeometry(5, 5, 5);
+  
+  //dhmiourgw to shader pou 8elw gia ton kyvo
+  var shaderNew={
+	  vertexShader:document.getElementById("vs0").textContent,
+	  fragmentShader:document.getElementById("fs0").textContent
+  }
+  //dhmiourgw to material pou 8a exei to shader kai 8a xrhsimopoihsw ayto to material gia to cube mesh
+  var shaderMat=new THREE.ShaderMaterial({
+	  
+	  name:"shaderNew"
+	 
+	  });
+  
+  //diaforetiko material
   var cubeMaterial = new THREE.MeshLambertMaterial({
 	  color: 0xff0000
 	  });
-  var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+	  
+  //var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+  var cube = new THREE.Mesh(cubeGeometry, shaderMat);
   //poy xekinaei to antikeimeno - h 8esh toy	
   cube.position.x = 2.5;
   cube.position.y = 2.5;
@@ -64,6 +80,7 @@ $(function() {
   cube.castShadow=true;
   //to prosthetw sthn skhnh
   scene.add(cube);
+  
   
   /*create text*/ 
   /*var textGeometry = new THREE.TextGeometry('Hello  World', {font: 'helvetiker',size:2, height:1}); 
@@ -223,10 +240,9 @@ scene.add( spotLightHelper );
         });
     datGui.close();
   
-  
-  //rotate ton kyvo gyrw apo ton x axona
+   //rotate ton kyvo gyrw apo ton x axona
    function animate(){
-	  	  render();
+	  render();
 	  //create a loop that causes the renderer to draw the scene 60 times per second.
 	  requestAnimationFrame(animate);
 	  stats.update();  
