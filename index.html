@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+
+<html>
+	<title> Our WebGL FrameWork </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script type="text/javascript" src="js/three.js"></script>
+	<script type="text/javascript" src="js/three.min.js"></script>
+	<script type="text/javascript" src="js/dat.gui.min.js"></script>
+	<script type="text/javascript" src="js/OrbitControls.js"></script>
+	<script type="text/javascript" src="js/TextGeometry.js"></script
+	<script type="text/javascript" src="js/helvetiker_regular.typeface.js"></script>
+	<script type="text/javascript" src="js/Stats.js"></script>
+
+<style>
+  body{
+  	margin:0;
+  	overflow:hidden;
+  	}
+</style>
+
+<body>
+	<div id ="webGL-container">
+	</div>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script id="vs0" type="x-shader/x-vertex">
+	//VERTEX SHADER
+	varying vec4 col;
+	void main(){
+	if (position.x<0.0)
+		col=vec4(0.0,1.0,0.0,1.0);
+	else 
+		col=vec4(1.0,0.0,0.0,1.0);
+	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+	gl_Position = projectionMatrix * mvPosition;
+	}
+	
+	</script>
+	<script id="fs0" type="x-shader/x-fragment">
+	//FRAGMENT SHADER
+	varying vec4 col; //prepei na einai to idio me tou vertex
+	void main(){
+		gl_FragColor=col;
+	}
+	
+	</script>
+	
+	<script id="vs1" type="x-shader/x-vertex">
+	//VERTEX SHADER
+	varying vec4 col1;
+	uniform vec4 color_dark;
+	void main(){
+		if (position.x*position.y<0.0)
+		col1=color_dark;
+	else 
+		col1=vec4(1.0,2.0,0.0,1.0);
+	vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+	gl_Position = projectionMatrix * mvPosition;
+	}
+	
+	</script>
+	<script id="fs1" type="x-shader/x-fragment">
+	//FRAGMENT SHADER
+	varying vec4 col1; //prepei na einai to idio me tou vertex
+	void main(){
+		gl_FragColor=col1;
+	}
+	
+	</script>
+	
+</body>
+
+
+</html>
